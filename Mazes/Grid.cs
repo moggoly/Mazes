@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace Mazes
 {
@@ -104,6 +105,42 @@ namespace Mazes
             }
 
             return output;
+        }
+
+        public Bitmap ToPng(int cellSize = 10)
+        {
+            var imageWidth = cellSize * Columns;
+            var imageHeight = cellSize * Rows;
+
+            var background = Brushes.White;
+            var wall = Pens.Black;
+
+            var image = new Bitmap(imageWidth, imageHeight);
+
+            using (var g = Graphics.FromImage(image))
+            {
+                g.FillRectangle(background, 0, 0, imageWidth, imageHeight);
+
+                foreach (var cell in EachCell())
+                {
+                    var x1 = cell.Column * cellSize;
+                    var y1 = cell.Row * cellSize;
+                    var x2 = (cell.Column + 1) * cellSize;
+                    var y2 = (cell.Row + 1) * cellSize;
+
+                    if (cell.North == null)
+                        g.DrawLine(wall, x1, y1, x2, y1);
+                    if (cell.West == null)
+                        g.DrawLine(wall, x1, y1, x1, y2);
+
+                    if (!cell.IsLinked(cell.East))
+                        g.DrawLine(wall, x2, y1, x2, y2);
+                    if (!cell.IsLinked(cell.South))
+                        g.DrawLine(wall, x1, y2, x2, y2);
+                }
+            }
+
+            return image;
         }
     }
 }

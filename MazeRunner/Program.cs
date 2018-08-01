@@ -12,6 +12,11 @@ namespace MazeRunner
             var maze = Sidewinder.GenerateMaze(grid);
 
             Console.WriteLine(maze);
+
+            var img = maze.ToPng(20);
+            img.Save("maze.png");
+
+            Console.WriteLine("Done....");
             Console.ReadLine();
         }
     }
