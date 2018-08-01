@@ -60,5 +60,29 @@ namespace Mazes
         {
             return cell != null && _links.ContainsKey(cell);
         }
+
+        public Distances Distances()
+        {
+            var distances = new Distances(this);
+            var frontier = new List<Cell> {this};
+
+            while (frontier.Any())
+            {
+                var newFrontier = new List<Cell>();
+
+                foreach (var cell in frontier)
+                {
+                    foreach (var linked in cell.Links())
+                    {
+                        if (distances.ContainsKey(linked)) continue;
+                        distances.Add(linked, distances[cell] + 1);
+                        newFrontier.Add(linked);
+                    }
+                }
+                frontier = newFrontier;
+            }
+
+            return distances;
+        }
     }
 }

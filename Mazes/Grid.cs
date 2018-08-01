@@ -78,6 +78,11 @@ namespace Mazes
             return Cells.SelectMany(cellRow => cellRow);
         }
 
+        public virtual string ContentsOf(Cell cell)
+        {
+            return " ";
+        }
+
         public override string ToString()
         {
             var output = "+";
@@ -91,11 +96,11 @@ namespace Mazes
             {
                 var top = "|";
                 var bottom = "+";
-                var body = "   ";
                 var corner = "+";
 
                 foreach (var cell in cellRow)
                 {
+                    var body = $" {ContentsOf(cell)} ";
                     top += body + (cell.IsLinked(cell.East) ? " " : "|");
                     bottom += (cell.IsLinked(cell.South) ? "   " : "---") + corner;
                 }

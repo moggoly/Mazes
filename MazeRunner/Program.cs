@@ -8,8 +8,12 @@ namespace MazeRunner
     {
         static void Main(string[] args)
         {
-            var grid = new Grid(15, 15);
+            var grid = new DistanceGrid(8, 8);
             var maze = Sidewinder.GenerateMaze(grid);
+
+            var start = maze.GetCell(0, 0);
+            var distances = start.Distances();
+            maze.Distances = distances;
 
             Console.WriteLine(maze);
 

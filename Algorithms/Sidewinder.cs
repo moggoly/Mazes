@@ -6,7 +6,7 @@ namespace Algorithms
 {
     public class Sidewinder
     {
-        public static Grid GenerateMaze(Grid grid)
+        public static T GenerateMaze<T>(T grid) where T: Grid
         {
             var rnd = new Random();
 
