@@ -1,4 +1,6 @@
-﻿namespace Mazes
+﻿using Common;
+
+namespace Mazes
 {
     public class DistanceGrid : Grid
     {
@@ -12,7 +14,7 @@
         {
             if (Distances != null && Distances.ContainsKey(cell))
             {
-                return Distances[cell].ToString("X");
+                return Base36.Encode(Distances[cell]);
             }
 
             return " ";
