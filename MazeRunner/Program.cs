@@ -13,7 +13,7 @@ namespace MazeRunner
 
             var start = maze.GetCell(0, 0);
             var distances = start.Distances();
-            maze.Distances = distances;
+            maze.Distances = distances.PathTo(grid.GetCell(grid.Rows - 1, grid.Columns - 1));
 
             Console.WriteLine(maze);
 
