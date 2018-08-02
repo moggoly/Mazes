@@ -28,13 +28,13 @@ namespace MazeRunner
         private ColoredGrid GenerateMaze(int rows, int columns)
         {
             var grid = new ColoredGrid(rows, columns);
-            var maze = AldousBroder.GenerateMaze(grid);
+            var maze = Wilsons.GenerateMaze(grid);
             return maze;
         }
 
         private ColoredGrid ShortestPath(ColoredGrid maze)
         {
-            var start = maze.GetCell(0, 0);
+            var start = maze.GetCenterCell();
             var distances = start.Distances();
             maze.Distances = distances;
             //maze.Distances = distances.PathTo(maze.GetCell(maze.Rows - 1, maze.Columns - 1));

@@ -62,6 +62,11 @@ namespace Mazes
             return Cells[row][column];
         }
 
+        public Cell GetCenterCell()
+        {
+            return Cells[Rows / 2][Columns / 2];
+        }
+
         public Cell RandomCell()
         {
             var row = _rnd.Next(Rows);
