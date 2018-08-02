@@ -12,36 +12,36 @@ namespace MazeRunner
             p.Run();
 
             Console.WriteLine("Done....");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private void Run()
         {
-            var grid = GenerateMaze(15, 15);
+            var grid = GenerateMaze(50, 50);
             var maze = ShortestPath(grid);
 
-            Console.WriteLine(maze);
-            //var img = maze.ToPng(20);
-            //img.Save("maze.png");
+            //Console.WriteLine(maze);
+            var img = maze.ToPng(20);
+            img.Save("maze.png");
         }
 
-        private DistanceGrid GenerateMaze(int rows, int columns)
+        private ColoredGrid GenerateMaze(int rows, int columns)
         {
-            var grid = new DistanceGrid(rows, columns);
+            var grid = new ColoredGrid(rows, columns);
             var maze = Sidewinder.GenerateMaze(grid);
             return maze;
         }
 
-        private Grid ShortestPath(DistanceGrid maze)
+        private ColoredGrid ShortestPath(ColoredGrid maze)
         {
             var start = maze.GetCell(0, 0);
             var distances = start.Distances();
-
-            maze.Distances = distances.PathTo(maze.GetCell(maze.Rows - 1, maze.Columns - 1));
+            maze.Distances = distances;
+            //maze.Distances = distances.PathTo(maze.GetCell(maze.Rows - 1, maze.Columns - 1));
             return maze;
         }
 
-        private Grid LongestPath(DistanceGrid maze)
+        private ColoredGrid LongestPath(ColoredGrid maze)
         {
             var start = maze.GetCell(0, 0);
             var distances = start.Distances();

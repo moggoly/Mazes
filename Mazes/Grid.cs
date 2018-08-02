@@ -13,6 +13,8 @@ namespace Mazes
 
         private readonly Random _rnd = new Random();
 
+        protected bool ShowBackgrounds = false;
+
         public Grid(int rows, int columns)
         {
             Rows = rows;
@@ -83,6 +85,11 @@ namespace Mazes
             return " ";
         }
 
+        public virtual Color BackgroundColorFor(Cell cell)
+        {
+            return Color.White;
+        }
+
         public override string ToString()
         {
             var output = "+";
@@ -125,6 +132,19 @@ namespace Mazes
             using (var g = Graphics.FromImage(image))
             {
                 g.FillRectangle(background, 0, 0, imageWidth, imageHeight);
+
+                if (ShowBackgrounds)
+                    foreach (var cell in EachCell())
+                    {
+                        var x1 = cell.Column * cellSize;
+                        var y1 = cell.Row * cellSize;
+                        var x2 = (cell.Column + 1) * cellSize;
+                        var y2 = (cell.Row + 1) * cellSize;
+
+                        var color = BackgroundColorFor(cell);
+                        var brush = new SolidBrush(color);
+                        g.FillRectangle(brush, x1, y1, (x2 - x1), (y2 - y1));
+                    }
 
                 foreach (var cell in EachCell())
                 {
