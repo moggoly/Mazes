@@ -17,7 +17,7 @@ namespace MazeRunner
 
         private void Run()
         {
-            var grid = GenerateMaze(50, 50);
+            var grid = GenerateMaze(25, 25);
             var maze = ShortestPath(grid);
 
             //Console.WriteLine(maze);
@@ -28,7 +28,7 @@ namespace MazeRunner
         private ColoredGrid GenerateMaze(int rows, int columns)
         {
             var grid = new ColoredGrid(rows, columns);
-            var maze = Sidewinder.GenerateMaze(grid);
+            var maze = AldousBroder.GenerateMaze(grid);
             return maze;
         }
 

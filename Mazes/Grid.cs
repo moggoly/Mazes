@@ -9,6 +9,7 @@ namespace Mazes
     {
         public int Rows { get; }
         public int Columns { get; }
+        public int Size { get; }
         public Cell[][] Cells { get; private set; }
 
         private readonly Random _rnd = new Random();
@@ -19,6 +20,7 @@ namespace Mazes
         {
             Rows = rows;
             Columns = columns;
+            Size = Rows * Columns;
 
             PrepareGrid();
             ConfigureCells();
