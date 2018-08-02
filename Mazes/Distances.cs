@@ -5,9 +5,9 @@ namespace Mazes
 {
     public class Distances : Dictionary<Cell, int>
     {
-        private Cell _root;
+        private readonly Cell _root;
 
-        public Distances(Cell root) : base()
+        public Distances(Cell root)
         {
             _root = root;
             this[root] = 0;
@@ -28,7 +28,7 @@ namespace Mazes
 
         public Distances PathTo(Cell goal)
         {
-            Cell current = goal;
+            var current = goal;
 
             var breadcrumbs = new Distances(_root) {[current] = this[current]};
 
@@ -50,5 +50,23 @@ namespace Mazes
 
             return breadcrumbs;
         }
+
+        public (Cell, int) Max()
+        {
+            var maxDistance = 0;
+            var maxCell = _root;
+
+            foreach (var (cell, distance) in this)
+            {
+                if (distance > maxDistance)
+                {
+                    maxCell = cell;
+                    maxDistance = distance;
+                }
+            }
+
+            return (maxCell, maxDistance);
+        }
+
     }
 }
